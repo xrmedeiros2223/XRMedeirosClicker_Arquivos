@@ -1,0 +1,355 @@
+<Window x:Class="AutoClickerIA.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="XRMEDEIROSCLICKER"
+        Width="520"
+        Height="760"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Background="Transparent"
+        Foreground="White">
+
+    <Window.Resources>
+        <Style x:Key="RedButtonStyle" TargetType="Button">
+            <Setter Property="Height" Value="42"/>
+            <Setter Property="Background" Value="#D50000"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="ButtonBorder"
+                                Background="{TemplateBinding Background}"
+                                CornerRadius="5"
+                                Padding="12">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="ButtonBorder" Property="Background" Value="#FF2020"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="ButtonBorder" Property="Background" Value="#920000"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="ButtonBorder" Property="Opacity" Value="0.45"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="DarkButtonStyle"
+               TargetType="Button"
+               BasedOn="{StaticResource RedButtonStyle}">
+            <Setter Property="Background" Value="#222222"/>
+            <Setter Property="Height" Value="36"/>
+            <Setter Property="FontSize" Value="12"/>
+        </Style>
+
+        <Style x:Key="CardStyle" TargetType="Border">
+            <Setter Property="Background" Value="#111111"/>
+            <Setter Property="BorderBrush" Value="#292929"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="CornerRadius" Value="7"/>
+            <Setter Property="Padding" Value="16"/>
+            <Setter Property="Margin" Value="0,0,0,12"/>
+        </Style>
+
+        <Style x:Key="CardTitleStyle" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="#FF3030"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Margin" Value="0,0,0,13"/>
+        </Style>
+
+        <Style x:Key="MutedTextStyle" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="#888888"/>
+            <Setter Property="FontSize" Value="11"/>
+        </Style>
+
+        <Style TargetType="RadioButton">
+            <Setter Property="Foreground" Value="#E5E5E5"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Margin" Value="0,4"/>
+        </Style>
+
+        <Style TargetType="Slider">
+            <Setter Property="Margin" Value="0,9,0,0"/>
+            <Setter Property="Height" Value="22"/>
+        </Style>
+    </Window.Resources>
+
+    <Border Background="#090909"
+            BorderBrush="#B00000"
+            BorderThickness="1"
+            CornerRadius="9">
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="48"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Border Grid.Row="0"
+                    Background="#120000"
+                    CornerRadius="9,9,0,0"
+                    MouseLeftButtonDown="TitleBar_MouseLeftButtonDown">
+                <Grid Margin="16,0,8,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="42"/>
+                        <ColumnDefinition Width="42"/>
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                        <Border Width="8" Height="22" Background="#FF0000" Margin="0,0,10,0"/>
+                        <TextBlock Text="XRMEDEIROSCLICKER"
+                                   FontWeight="Bold"
+                                   FontSize="15"
+                                   VerticalAlignment="Center"/>
+                        <TextBlock Text="  //  PRIVATE BUILD"
+                                   Foreground="#760000"
+                                   FontSize="10"
+                                   FontWeight="Bold"
+                                   VerticalAlignment="Center"/>
+                    </StackPanel>
+
+                    <Button Grid.Column="1"
+                            Content="—"
+                            Background="Transparent"
+                            Foreground="#AAAAAA"
+                            BorderThickness="0"
+                            FontSize="18"
+                            Cursor="Hand"
+                            Click="MinimizeButton_Click"/>
+
+                    <Button Grid.Column="2"
+                            Content="×"
+                            Background="Transparent"
+                            Foreground="#FF3030"
+                            BorderThickness="0"
+                            FontSize="20"
+                            Cursor="Hand"
+                            Click="CloseButton_Click"/>
+                </Grid>
+            </Border>
+
+            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                <StackPanel Margin="22">
+                    <TextBlock Text="CLICK MODULE"
+                               Foreground="#4A4A4A"
+                               FontWeight="Bold"
+                               FontSize="10"
+                               Margin="2,0,0,12"/>
+
+                    <Border Style="{StaticResource CardStyle}">
+                        <StackPanel>
+                            <TextBlock Text="VELOCIDADE" Style="{StaticResource CardTitleStyle}"/>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="14"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Border Grid.Column="0" Background="#080808" CornerRadius="5" Padding="12">
+                                    <StackPanel>
+                                        <TextBlock Text="CPS MÍNIMO" Style="{StaticResource MutedTextStyle}"/>
+                                        <TextBlock x:Name="TxtMin" Text="10" FontSize="25" FontWeight="Bold" Margin="0,3,0,0"/>
+                                        <Slider x:Name="SliderMin"
+                                                Minimum="1"
+                                                Maximum="30"
+                                                Value="10"
+                                                TickFrequency="1"
+                                                IsSnapToTickEnabled="True"/>
+                                    </StackPanel>
+                                </Border>
+
+                                <Border Grid.Column="2" Background="#080808" CornerRadius="5" Padding="12">
+                                    <StackPanel>
+                                        <TextBlock Text="CPS MÁXIMO" Style="{StaticResource MutedTextStyle}"/>
+                                        <TextBlock x:Name="TxtMax" Text="15" Foreground="#FF3030" FontSize="25" FontWeight="Bold" Margin="0,3,0,0"/>
+                                        <Slider x:Name="SliderMax"
+                                                Minimum="1"
+                                                Maximum="30"
+                                                Value="15"
+                                                TickFrequency="1"
+                                                IsSnapToTickEnabled="True"/>
+                                    </StackPanel>
+                                </Border>
+                            </Grid>
+                        </StackPanel>
+                    </Border>
+
+                    <Border Style="{StaticResource CardStyle}">
+                        <StackPanel>
+                            <TextBlock Text="BOTÃO AUTOMÁTICO" Style="{StaticResource CardTitleStyle}"/>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <RadioButton x:Name="RbLeft"
+                                             Grid.Column="0"
+                                             GroupName="AutomaticButton"
+                                             Content="CLIQUE ESQUERDO"
+                                             IsChecked="True"/>
+                                <RadioButton x:Name="RbRight"
+                                             Grid.Column="1"
+                                             GroupName="AutomaticButton"
+                                             Content="CLIQUE DIREITO"/>
+                            </Grid>
+                        </StackPanel>
+                    </Border>
+
+                    <Border Style="{StaticResource CardStyle}">
+                        <StackPanel>
+                            <TextBlock Text="ENTRADA DE ATIVAÇÃO" Style="{StaticResource CardTitleStyle}"/>
+
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <RadioButton x:Name="RbActivationKeyboard"
+                                             Grid.Column="0"
+                                             GroupName="ActivationInput"
+                                             Content="TECLADO"
+                                             IsChecked="True"/>
+
+                                <RadioButton x:Name="RbActivationLeft"
+                                             Grid.Column="1"
+                                             GroupName="ActivationInput"
+                                             Content="MOUSE LEFT"/>
+
+                                <RadioButton x:Name="RbActivationRight"
+                                             Grid.Column="2"
+                                             GroupName="ActivationInput"
+                                             Content="MOUSE RIGHT"/>
+                            </Grid>
+
+                            <Border x:Name="KeyboardBindPanel"
+                                    Background="#080808"
+                                    CornerRadius="5"
+                                    Padding="12"
+                                    Margin="0,12,0,0">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="110"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <StackPanel>
+                                        <TextBlock Text="TECLA SELECIONADA" Style="{StaticResource MutedTextStyle}"/>
+                                        <TextBlock x:Name="TxtActivationHotkey"
+                                                   Text="F8"
+                                                   FontWeight="Bold"
+                                                   FontSize="18"
+                                                   Margin="0,3,0,0"/>
+                                    </StackPanel>
+
+                                    <Button x:Name="BtnChangeActivation"
+                                            Grid.Column="1"
+                                            Content="ALTERAR"
+                                            Margin="10,0,0,0"
+                                            Style="{StaticResource DarkButtonStyle}"/>
+                                </Grid>
+                            </Border>
+
+                            <TextBlock x:Name="MouseActivationHint"
+                                       Text="No mouse, o modo AO PRESSIONAR é aplicado automaticamente."
+                                       Visibility="Collapsed"
+                                       Margin="0,10,0,0"
+                                       Style="{StaticResource MutedTextStyle}"/>
+                        </StackPanel>
+                    </Border>
+
+                    <Border Style="{StaticResource CardStyle}">
+                        <StackPanel>
+                            <TextBlock Text="MODO DE ATIVAÇÃO" Style="{StaticResource CardTitleStyle}"/>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <RadioButton x:Name="RbToggle"
+                                             Grid.Column="0"
+                                             GroupName="ActivationMode"
+                                             Content="ALTERNAR"/>
+                                <RadioButton x:Name="RbHold"
+                                             Grid.Column="1"
+                                             GroupName="ActivationMode"
+                                             Content="AO PRESSIONAR"
+                                             IsChecked="True"/>
+                            </Grid>
+                        </StackPanel>
+                    </Border>
+
+                    <Border Style="{StaticResource CardStyle}">
+                        <StackPanel>
+                            <TextBlock Text="PAUSA GLOBAL" Style="{StaticResource CardTitleStyle}"/>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="110"/>
+                                </Grid.ColumnDefinitions>
+                                <Border Background="#080808" CornerRadius="5" Padding="12">
+                                    <StackPanel>
+                                        <TextBlock Text="TECLA DE PAUSA" Style="{StaticResource MutedTextStyle}"/>
+                                        <TextBlock x:Name="TxtPauseHotkey"
+                                                   Text="F7"
+                                                   FontWeight="Bold"
+                                                   FontSize="18"
+                                                   Margin="0,3,0,0"/>
+                                    </StackPanel>
+                                </Border>
+                                <Button x:Name="BtnChangePause"
+                                        Grid.Column="1"
+                                        Content="ALTERAR"
+                                        Margin="10,0,0,0"
+                                        Style="{StaticResource DarkButtonStyle}"/>
+                            </Grid>
+                        </StackPanel>
+                    </Border>
+
+                    <Border Background="#0D0D0D"
+                            BorderBrush="#390000"
+                            BorderThickness="1"
+                            CornerRadius="7"
+                            Padding="16">
+                        <StackPanel>
+                            <StackPanel Orientation="Horizontal"
+                                        HorizontalAlignment="Center"
+                                        Margin="0,0,0,13">
+                                <Ellipse x:Name="StatusDot"
+                                         Width="9"
+                                         Height="9"
+                                         Fill="#D50000"
+                                         Margin="0,0,8,0"
+                                         VerticalAlignment="Center"/>
+                                <TextBlock x:Name="TxtStatus"
+                                           Text="PARADO"
+                                           FontWeight="Bold"
+                                           FontSize="14"/>
+                            </StackPanel>
+                            <Button x:Name="BtnToggle"
+                                    Content="INICIAR MÓDULO"
+                                    Style="{StaticResource RedButtonStyle}"/>
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
+            </ScrollViewer>
+        </Grid>
+    </Border>
+</Window>
