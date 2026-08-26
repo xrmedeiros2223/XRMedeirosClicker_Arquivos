@@ -1,2 +1,2 @@
-*.cs linguist-language=C#
-*.xaml linguist-language=XAML
+*.cs linguist-language=C# linguist-detectable
+*.xaml linguist-language=XAML linguist-detectable
